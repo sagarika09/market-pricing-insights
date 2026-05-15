@@ -42,13 +42,15 @@ class EbayScraper(BaseScraper):
     name = "eBay"
 
     _CONDITION_MAP = {"Used": "3000", "New": "1000"}
-    _CATEGORY_MAP = {"Women's Jeans": "11554", "Women's Tops": "53159", "Women's Handbags": "169291"}
+    _CATEGORY_MAP = {"Women's Jeans": "11554", "Women's Tops": "53159", "Women's Handbags": "169291", "Women's Dresses": "63861"}
 
-    def search(self, query: str, condition: str = "All", category: str = "Women's Jeans", brand: str = "", material: str = "") -> pd.DataFrame:
+    def search(self, query: str, condition: str = "All", category: str = "Women's Jeans", brand: str = "", material: str = "", style: str = "") -> pd.DataFrame:
         if brand and brand.lower() not in query.lower():
             query = f"{brand} {query}"
         if material and material.lower() not in query.lower():
             query = f"{query} {material}"
+        if style and style.lower() not in query.lower():
+            query = f"{query} {style}"
         if EBAY_APP_ID and EBAY_CLIENT_SECRET:
             return self._search_api(query, condition, category)
         return self._search_scrape(query, condition, category)

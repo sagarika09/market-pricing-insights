@@ -10,6 +10,7 @@ class Product:
     asp_max: float       # Average Selling Price ceiling in USD
     category: str = "Women's Jeans"
     material: str = ""
+    style: str = ""
 
 
 PRODUCTS: List[Product] = [
@@ -33,5 +34,14 @@ PRODUCTS: List[Product] = [
         asp_max=300.0,
         category="Women's Handbags",
         material="Leather",
+    ),
+    Product(
+        brand="Calvin Klein",
+        name="Sheath Dress",
+        keywords=["Knee Length Office dress"],
+        asp_max=50.0,
+        category="Women's Dresses",
+        material="Polyester",
+        style="Sheath",
     ),
 ]

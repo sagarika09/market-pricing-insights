@@ -20,9 +20,10 @@ def render_comparison(product: Product, sources: list[str], condition: str = "Al
         st.info("No listings found under the ASP ceiling. Try adjusting the sources or check back later.")
         return
 
-    # Per-source KPI breakdown
-    cols = st.columns(len(sources))
-    for col, source in zip(cols, sources):
+    # Per-source KPI breakdown (always eBay → Vinted → Poshmark)
+    ordered_sources = [s for s in ["eBay", "Vinted", "Poshmark"] if s in sources]
+    cols = st.columns(len(ordered_sources))
+    for col, source in zip(cols, ordered_sources):
         src_df = df[df["source"] == source]
         col.markdown(f"**{source}**")
         if src_df.empty:
@@ -35,6 +36,8 @@ def render_comparison(product: Product, sources: list[str], condition: str = "Al
 
     st.divider()
 
+    platform_order = [s for s in ["eBay", "Vinted", "Poshmark"] if s in sources]
+
     # Price distribution by source
     st.subheader("Price by Source")
     fig = px.box(
@@ -46,13 +49,14 @@ def render_comparison(product: Product, sources: list[str], condition: str = "Al
         hover_data=["title"],
         labels={"source": "Platform", "price": "Price (USD)"},
         color_discrete_sequence=px.colors.qualitative.Set2,
+        category_orders={"source": platform_order},
     )
     fig.update_layout(showlegend=False, height=400)
     st.plotly_chart(fig, use_container_width=True)
 
     # Avg price bar chart
     st.subheader("Average Price Comparison")
-    avg_by_source = df.groupby("source")["price"].mean().reset_index()
+    avg_by_source = df.groupby("source")["price"].mean().reindex(platform_order).dropna().reset_index()
     avg_by_source.columns = ["Platform", "Avg Price (USD)"]
     bar_fig = px.bar(
         avg_by_source,
@@ -61,6 +65,7 @@ def render_comparison(product: Product, sources: list[str], condition: str = "Al
         color="Platform",
         text_auto=".2f",
         color_discrete_sequence=px.colors.qualitative.Set2,
+        category_orders={"Platform": platform_order},
     )
     bar_fig.update_layout(showlegend=False, height=350)
     st.plotly_chart(bar_fig, use_container_width=True)

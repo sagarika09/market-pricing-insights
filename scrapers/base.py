@@ -8,7 +8,7 @@ class BaseScraper(ABC):
     name: str = ""
 
     @abstractmethod
-    def search(self, query: str, condition: str = "All", category: str = "Women's Jeans", brand: str = "", material: str = "") -> pd.DataFrame:
+    def search(self, query: str, condition: str = "All", category: str = "Women's Jeans", brand: str = "", material: str = "", style: str = "") -> pd.DataFrame:
         """Return a DataFrame with columns matching SCHEMA_COLUMNS."""
 
     def _empty(self) -> pd.DataFrame:

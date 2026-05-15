@@ -9,14 +9,17 @@ class PoshmarkScraper(BaseScraper):
     name = "Poshmark"
     _search_url = "https://poshmark.com/search"
     _CATEGORY_MAP = {
-        "Women's Jeans":     {"category": "Bottoms", "subcategory": "Jeans"},
-        "Women's Tops":      {"category": "Tops", "subcategory": "Crop+Tops"},
-        "Women's Handbags":  {"category": "Handbags"},
+        "Women's Jeans":    {"category": "Bottoms", "subcategory": "Jeans"},
+        "Women's Tops":     {"category": "Tops", "subcategory": "Crop+Tops"},
+        "Women's Handbags": {"category": "Handbags"},
+        "Women's Dresses":  {"category": "Dresses"},
     }
 
-    def search(self, query: str, condition: str = "All", category: str = "Women's Jeans", brand: str = "", material: str = "") -> pd.DataFrame:
+    def search(self, query: str, condition: str = "All", category: str = "Women's Jeans", brand: str = "", material: str = "", style: str = "") -> pd.DataFrame:
         if material and material.lower() not in query.lower():
             query = f"{query} {material}"
+        if style and style.lower() not in query.lower():
+            query = f"{query} {style}"
         cat = self._CATEGORY_MAP.get(category, self._CATEGORY_MAP["Women's Jeans"])
         params = {
             "query": query,
