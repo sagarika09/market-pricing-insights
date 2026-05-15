@@ -30,7 +30,7 @@ def render_comparison(product: Product, sources: list[str], condition: str = "Al
         else:
             col.metric("Lowest", f"${src_df['price'].min():.2f}")
             col.metric("Highest", f"${src_df['price'].max():.2f}")
-            col.metric("Average", f"${src_df['price'].mean():.2f}")
+            col.metric("Median", f"${src_df['price'].median():.2f}")
             col.metric("Listings Considered", len(src_df))
 
     st.divider()
@@ -69,6 +69,9 @@ def render_comparison(product: Product, sources: list[str], condition: str = "Al
 
     # Listings table
     st.subheader("All Listings")
+    source_order = ["eBay", "Vinted", "Poshmark"]
+    df["_source_rank"] = df["source"].map({s: i for i, s in enumerate(source_order)}).fillna(99)
+    df = df.sort_values(["_source_rank", "price"]).drop(columns=["_source_rank"]).reset_index(drop=True)
     display_df = df[["source", "image_url", "title", "price", "url"]].copy()
     display_df["image_url"] = display_df["image_url"].apply(
         lambda u: f'<img src="{u}" width="64" height="64" style="object-fit:cover;border-radius:4px;">'
