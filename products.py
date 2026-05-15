@@ -9,6 +9,7 @@ class Product:
     keywords: List[str]
     asp_max: float       # Average Selling Price ceiling in USD
     category: str = "Women's Jeans"
+    material: str = ""
 
 
 PRODUCTS: List[Product] = [
@@ -24,5 +25,13 @@ PRODUCTS: List[Product] = [
         name="501 Original",
         keywords=["Levi's 501 Series Women's Straight Jeans Slim High Rise"],
         asp_max=50.0,
+    ),
+    Product(
+        brand="Coach",
+        name="Leather Pillow Tabby",
+        keywords=["Pillow Tabby", "Coach Tabby Shoulder Bag"],
+        asp_max=300.0,
+        category="Women's Handbags",
+        material="Leather",
     ),
 ]

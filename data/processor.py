@@ -17,12 +17,12 @@ def fetch_product(product: Product, sources: List[str], condition: str = "All") 
     for scraper in scrapers:
         source_frames = []
         for keyword in product.keywords:
-            cache_key = f"{keyword}||{product.brand}"
+            cache_key = f"{keyword}||{product.brand}||{product.material}"
             cached = get_cached(cache_key, scraper.name, condition)
             if cached is not None:
                 source_frames.append(cached)
             else:
-                result = scraper.search(keyword, condition, product.category, product.brand)
+                result = scraper.search(keyword, condition, product.category, product.brand, product.material)
                 if not result.empty:
                     save_cache(cache_key, condition, result)
                     source_frames.append(result)

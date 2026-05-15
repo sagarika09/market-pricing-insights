@@ -10,9 +10,11 @@ class VintedScraper(BaseScraper):
     # Vinted catalog IDs: Women > Bottoms > Jeans, Women > Tops
     _CATEGORY_MAP = {"Women's Jeans": "1206"}
 
-    def search(self, query: str, condition: str = "All", category: str = "Women's Jeans", brand: str = "") -> pd.DataFrame:
+    def search(self, query: str, condition: str = "All", category: str = "Women's Jeans", brand: str = "", material: str = "") -> pd.DataFrame:
         if brand and brand.lower() not in query.lower():
             query = f"{brand} {query}"
+        if material and material.lower() not in query.lower():
+            query = f"{query} {material}"
         params = {"search_text": query, "currency": "USD"}
         cat_id = self._CATEGORY_MAP.get(category)
         if cat_id:
