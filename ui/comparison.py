@@ -117,6 +117,27 @@ _PLATFORM_ICONS = {
     "Vinted":   "V",
     "Poshmark": "P",
 }
+_PLATFORM_LOGO_SVGS = {
+    "eBay": (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 32" height="32" role="img" aria-label="eBay">'
+        '<text font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="32">'
+        '<tspan x="0" y="28" fill="#E53238">e</tspan>'
+        '<tspan fill="#0064D2">B</tspan>'
+        '<tspan fill="#F5AF02">a</tspan>'
+        '<tspan fill="#86B817">y</tspan>'
+        '</text></svg>'
+    ),
+    "Vinted": (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 32" height="32" role="img" aria-label="Vinted">'
+        '<text x="0" y="25" font-family="Arial,sans-serif" font-weight="700" font-size="24" fill="#09B1BA">'
+        'vinted</text></svg>'
+    ),
+    "Poshmark": (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 32" height="32" role="img" aria-label="Poshmark">'
+        '<text x="0" y="24" font-family="Arial,sans-serif" font-weight="700" font-size="22" fill="#E8143B">'
+        'Poshmark</text></svg>'
+    ),
+}
 
 
 def _build_platform_summary(df: pd.DataFrame, platform_order: list[str]) -> str:
@@ -125,13 +146,11 @@ def _build_platform_summary(df: pd.DataFrame, platform_order: list[str]) -> str:
         src_df = df[df["source"] == source]
         color = _PLATFORM_COLORS.get(source, "#888")
         icon = _PLATFORM_ICONS.get(source, "•")
+        logo_svg = _PLATFORM_LOGO_SVGS.get(source, "")
 
         header = f"""
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-            <div style="background:{color};color:#fff;border-radius:50%;width:38px;height:38px;
-                        display:flex;align-items:center;justify-content:center;
-                        font-weight:800;font-size:15px;flex-shrink:0;">{icon}</div>
-            <div style="font-size:17px;font-weight:700;color:#1a1a2e;">{source}</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;min-height:36px;">
+            {logo_svg}
           </div>"""
 
         if src_df.empty:
@@ -139,7 +158,7 @@ def _build_platform_summary(df: pd.DataFrame, platform_order: list[str]) -> str:
             <div style="background:#fff;border-radius:16px;padding:24px;
                         box-shadow:0 2px 12px rgba(0,0,0,0.08);">
               {header}
-              <div style="color:#aaa;font-size:13px;">No listings found</div>
+              <div style="color:#aaa;font-size:13px;margin-top:8px;">No listings found</div>
             </div>"""
             continue
 
@@ -255,9 +274,31 @@ def _build_executive_takeaways(df: pd.DataFrame, platform_order: list[str]) -> s
 # ── Listing card grid ───────────────────────────────────────────────────────
 
 _BADGE_STYLE = {
-    "eBay":     ("🛒", "#E53238", "#fff"),
-    "Vinted":   ("V",  "#09B1BA", "#fff"),
-    "Poshmark": ("P",  "#E8143B", "#fff"),
+    "eBay":     ("#E53238", "#fff"),
+    "Vinted":   ("#09B1BA", "#fff"),
+    "Poshmark": ("#E8143B", "#fff"),
+}
+
+_BADGE_LOGO_SVGS = {
+    "eBay": (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 20" height="14" role="img">'
+        '<text font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="20">'
+        '<tspan x="0" y="17" fill="#E53238">e</tspan>'
+        '<tspan fill="#fff">B</tspan>'
+        '<tspan fill="#F5AF02">a</tspan>'
+        '<tspan fill="#86B817">y</tspan>'
+        '</text></svg>'
+    ),
+    "Vinted": (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 18" height="13" role="img">'
+        '<text x="0" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="15" fill="#fff">'
+        'vinted</text></svg>'
+    ),
+    "Poshmark": (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 18" height="13" role="img">'
+        '<text x="0" y="14" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="#fff">'
+        'Poshmark</text></svg>'
+    ),
 }
 
 
@@ -265,7 +306,8 @@ def _build_card_grid(df: pd.DataFrame, asp_max: float) -> str:
     cards_html = ""
     for _, row in df.iterrows():
         source = row["source"]
-        icon, badge_bg, badge_fg = _BADGE_STYLE.get(source, ("•", "#888", "#fff"))
+        badge_bg, badge_fg = _BADGE_STYLE.get(source, ("#888", "#fff"))
+        badge_logo = _BADGE_LOGO_SVGS.get(source, f'<span style="font-weight:700;">{source}</span>')
         price     = row["price"]
         title     = str(row["title"])[:80]
         url       = row["url"]
@@ -284,9 +326,9 @@ def _build_card_grid(df: pd.DataFrame, asp_max: float) -> str:
                     box-shadow:0 2px 10px rgba(0,0,0,0.09);display:flex;flex-direction:column;">
           <div style="position:relative;">
             {img_html}
-            <div style="position:absolute;top:10px;left:10px;background:{badge_bg};color:{badge_fg};
-                        border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;letter-spacing:0.3px;">
-              {icon} {source}
+            <div style="position:absolute;top:10px;left:10px;background:{badge_bg};
+                        border-radius:20px;padding:4px 10px;display:flex;align-items:center;">
+              {badge_logo}
             </div>
           </div>
           <div style="padding:12px;display:flex;flex-direction:column;flex:1;">
