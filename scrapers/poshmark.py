@@ -6,7 +6,7 @@ from .base import BaseScraper
 
 
 class PoshmarkScraper(BaseScraper):
-    name = "Poshmark"
+    name = "Poshmark US"
     _search_url = "https://poshmark.com/search"
     _CATEGORY_MAP = {
         "Women's Jeans":    {"category": "Bottoms", "subcategory": "Jeans"},

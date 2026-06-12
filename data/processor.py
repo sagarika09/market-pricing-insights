@@ -5,7 +5,9 @@ from scrapers import ALL_SCRAPERS
 from data.cache import get_cached, save_cache
 
 
-def fetch_product(product: Product, sources: List[str], condition: str = "All") -> pd.DataFrame:
+def fetch_product(product: Product, sources: List[str], condition: str = "") -> pd.DataFrame:
+    if not condition:
+        condition = getattr(product, "condition", "All")
     """
     For each enabled source, try the cache first, then scrape.
     Runs each keyword query and deduplicates by URL.

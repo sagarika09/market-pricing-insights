@@ -1,0 +1,135 @@
+{
+  "US": [
+    {
+      "brand": "Zara",
+      "name": "Crop Top",
+      "keywords": [
+        "Black cropped long sleeve top"
+      ],
+      "asp_max": 50.0,
+      "category": "Women's Tops",
+      "material": "",
+      "style": "",
+      "condition": "All",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "brand": "Levi's",
+      "name": "501 Original",
+      "keywords": [
+        "Levi's 501 Series Women's Straight Jeans Slim High Rise"
+      ],
+      "asp_max": 50.0,
+      "category": "Women's Jeans",
+      "material": "",
+      "style": "",
+      "condition": "All",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "brand": "Coach",
+      "name": "Leather Pillow Tabby",
+      "keywords": [
+        "Pillow Tabby",
+        "Coach Tabby Shoulder Bag"
+      ],
+      "asp_max": 300.0,
+      "category": "Women's Handbags",
+      "material": "Leather",
+      "style": "",
+      "condition": "All",
+      "region": "US",
+      "currency": "USD"
+    },
+    {
+      "brand": "Calvin Klein",
+      "name": "Sheath Dress",
+      "keywords": [
+        "Knee Length Office dress"
+      ],
+      "asp_max": 50.0,
+      "category": "Women's Dresses",
+      "material": "Polyester",
+      "style": "Sheath",
+      "condition": "All",
+      "region": "US",
+      "currency": "USD"
+    }
+  ],
+  "UK": [
+    {
+      "brand": "Zara",
+      "name": "Zara Dress",
+      "keywords": [
+        "Zara midi maxi dress",
+        "Zara midi dress viscose"
+      ],
+      "asp_max": 50.0,
+      "category": "Women's Dresses",
+      "material": "Viscose",
+      "style": "Midi Maxi",
+      "condition": "Used",
+      "region": "UK",
+      "currency": "GBP"
+    },
+    {
+      "brand": "M&S",
+      "name": "Women's Puffer Jacket",
+      "keywords": [
+        "M&S puffer jacket women",
+        "Marks Spencer puffa jacket ladies"
+      ],
+      "asp_max": 50.0,
+      "category": "Women's Jackets",
+      "material": "Polyester",
+      "style": "Quilted",
+      "condition": "Used",
+      "region": "UK",
+      "currency": "GBP"
+    },
+    {
+      "brand": "Levi's",
+      "name": "Levi's 512",
+      "keywords": [
+        "Levi\u2019s Bootcut Jeans Women\u2019s Size 14 Blue Slimming Vintage Style Stretch"
+      ],
+      "asp_max": 50.0,
+      "category": "Women's Jeans",
+      "material": "Cotton",
+      "style": "Bootcut",
+      "condition": "Used",
+      "region": "UK",
+      "currency": "GBP"
+    },
+    {
+      "brand": "Boden",
+      "name": "Boden Blue Maxi Dress",
+      "keywords": [
+        "Boden Blue Sleeveless Maxi Dress"
+      ],
+      "asp_max": 50.0,
+      "category": "Women's Dresses",
+      "material": "",
+      "style": "Maxi",
+      "condition": "Used",
+      "region": "UK",
+      "currency": "GBP"
+    },
+    {
+      "brand": "M&S",
+      "name": "M&S Collection women's white midi skirt",
+      "keywords": [
+        "M&S Collection women's white midi skirt"
+      ],
+      "asp_max": 50.0,
+      "category": "Women's Skirts",
+      "material": "",
+      "style": "Midi",
+      "condition": "Used",
+      "region": "UK",
+      "currency": "GBP"
+    }
+  ]
+}
